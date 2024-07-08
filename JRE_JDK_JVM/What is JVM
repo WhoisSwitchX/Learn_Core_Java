@@ -1,0 +1,9 @@
+<h1>The JVM (Java Virtual Machine)</h1> is the cornerstone of Java's "write once, run anywhere" philosophy.
+It's an abstract computing machine that provides a runtime environment in which Java bytecode can be executed.
+
+Key Functions
+Bytecode Interpretation: Translates Java bytecode into machine-specific instructions.
+Memory Management: Handles memory allocation and deallocation, including garbage collection.
+JIT Compilation: Compiles frequently executed bytecode to native machine code for improved performance.
+Exception Handling: Manages the execution of try-catch blocks and handles runtime exceptions.
+Security: Implements the Java security model to protect against malicious code.
