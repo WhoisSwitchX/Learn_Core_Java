@@ -1,4 +1,4 @@
-<h1>The JVM (Java Virtual Machine)</h1> is the cornerstone of Java's "write once, run anywhere" philosophy.
+The JVM (Java Virtual Machine) is the cornerstone of Java's "write once, run anywhere" philosophy.
 It's an abstract computing machine that provides a runtime environment in which Java bytecode can be executed.
 
 Key Functions
