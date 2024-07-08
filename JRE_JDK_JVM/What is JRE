@@ -1,0 +1,7 @@
+JRE: Java Runtime Environment
+The JRE (Java Runtime Environment) is the minimum environment required to execute a Java application. It consists of the JVM, core libraries, and other supporting files.
+
+Components
+JVM: An implementation of the JVM specification for a particular platform.
+Core Libraries: Essential Java API classes (e.g., java.lang, java.util).
+Supporting Files: Configuration files and resources needed for Java applications.
