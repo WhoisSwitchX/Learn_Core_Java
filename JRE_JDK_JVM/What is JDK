@@ -1,0 +1,10 @@
+The JDK (Java Development Kit) is a superset of the JRE, providing everything needed for Java application development.
+
+Key Components
+JRE: Includes a complete Java Runtime Environment.
+Development Tools:
+javac: The Java compiler
+java: The Java application launcher
+javadoc: Documentation generator
+jdb: Java debugger
+Additional Libraries: Extra APIs for development (e.g., javax packages).
