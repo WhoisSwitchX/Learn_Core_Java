@@ -1,0 +1,24 @@
+Relationship and Usage
+Development: Use the JDK to write, compile, and debug Java code.
+Deployment: Use the JRE to run Java applications on end-user machines.
+Execution: The JVM, part of both JRE and JDK, actually runs the Java program.
+Code Example
+Here's a simple demonstration of how these components interact:
+
+// This file is named HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+To compile and run this program:
+
+Use the JDK's javac to compile:
+
+javac HelloWorld.java
+This creates HelloWorld.class containing bytecode.
+
+Use the JRE's java to run:
+
+java HelloWorld
+The JVM within the JRE executes the bytecode.
