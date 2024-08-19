@@ -1,0 +1,29 @@
+Loop in java is a feature where we can execute a set of instructions repeatedly. 
+Loops can execute a block of code as long as a specified condition is reached.
+Loops are handy because they save time, reduce errors, and they make code more readable.
+
+While Loop: (Entry controlled loop)
+            The Java while loop is used to iterate a part of the program repeatedly until the specified Boolean condition is true. 
+            As soon as the Boolean condition becomes false, the loop automatically stops.
+            The while loop is considered as a repeating if statement. If the number of iteration is not fixed, it is recommended to use the while loop.
+
+class whileLoopx {
+    public static void main(String args[])
+    {
+        // initialization expression
+        int i = 1;
+ 
+        // test expression
+        while (i < 6) {
+            System.out.println("Hello World");
+ 
+            // update expression
+            i++;
+        }
+    }
+}
+
+
+
+Do-While Loop: If the number of iteration is not fixed and you must have to execute the loop at least once, it is recommended to use a do-while loop.
+                (Java do-while loop is called an exit control loop.)
