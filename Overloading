@@ -1,0 +1,25 @@
+public class Main {
+
+    public void sayHello(String fname) {
+        System.out.println(fname);
+    }
+
+    public void display(String fname) {
+        System.out.println("String " + fname);
+    }
+    
+    public void display(Object obj){
+        System.out.println("Object " + obj);
+    }
+    public static void main(String[] args) {
+        Main m = new Main();
+       
+       String str;
+       m.display(str);
+       
+       Object obj = new Object();
+     
+      m.display(obj);
+     
+    }
+}
