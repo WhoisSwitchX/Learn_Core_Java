@@ -1,26 +1,79 @@
-<div class="form-field">
-                    <div class="form-head">
-                        <p>Role: <span>*</span></p>
-                    </div>
-                    <div class="form-input">
-                        <select>
-                            <option value="Select">Select</option>
-                            <option value="Client Level Supervisor">Client Level Supervisor</option>
-                            <option value="Analyst">Analyst</option>
-                            <option value="Client Level expert">Client Level expert</option>
-                        </select>
-                    </div>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role and Approval Level</title>
+    <style>
+        .form-field {
+            margin-bottom: 20px;
+        }
 
-                 <div class="form-field">
-            <div class="form-head">
-              <p>Approval Level 2: <span>*</span></p>
-            </div>
-            <div class="form-input">
-              <select>
+        .form-head p {
+            margin: 0;
+        }
+
+        .form-input select {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Role Dropdown -->
+    <div class="form-field">
+        <div class="form-head">
+            <p>Role: <span>*</span></p>
+        </div>
+        <div class="form-input">
+            <select id="role" onchange="updateApprovalLevel()">
+                <option value="Select">Select</option>
+                <option value="Analyst">Analyst</option>
+                <option value="Client Level Supervisor">Client Level Supervisor</option>
+                <option value="Client Level Expert">Client Level Expert</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Approval Level 2 Dropdown -->
+    <div class="form-field">
+        <div class="form-head">
+            <p>Approval Level 2: <span>*</span></p>
+        </div>
+        <div class="form-input">
+            <select id="approvalLevel2">
                 <option value="Select">Select</option>
                 <option value="vimalKumar">Vimalkumar Fernandes</option>
-                <option value="royPurohit">Sarthak Roy /Sunil Purohit</option>
-              </select>
-            </div>
-          </div>
+                <option value="sarthakRoy">Sarthak Roy / Sunil Purohit</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        function updateApprovalLevel() {
+            var role = document.getElementById('role').value;
+            var approvalLevel2 = document.getElementById('approvalLevel2');
+
+            // Clear all options first
+            approvalLevel2.innerHTML = '<option value="Select">Select</option>';
+
+            if (role === 'Analyst' || role === 'Client Level Supervisor') {
+                // Show only Vimalkumar Fernandes
+                var option1 = document.createElement('option');
+                option1.value = 'vimalKumar';
+                option1.text = 'Vimalkumar Fernandes';
+                approvalLevel2.appendChild(option1);
+            } else if (role === 'Client Level Expert') {
+                // Show only Sarthak Roy / Sunil Purohit
+                var option2 = document.createElement('option');
+                option2.value = 'sarthakRoy';
+                option2.text = 'Sarthak Roy / Sunil Purohit';
+                approvalLevel2.appendChild(option2);
+            }
+        }
+    </script>
+
+</body>
+</html>
