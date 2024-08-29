@@ -5,6 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="Tadex.css" />
     <title>Tradex Creation</title>
+    <style>
+        .input-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 200px;
+        }
+
+        .currency-symbol {
+            background-color: #f0f0f0;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            border: none;
+            text-align: right;
+            padding: 10px;
+            font-size: 18px;
+            width: 100px;
+            outline: none;
+        }
+
+        .input-buttons {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-buttons button {
+            border: none;
+            background-color: #f0f0f0;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .input-buttons button:hover {
+            background-color: #ddd;
+        }
+
+        .input-buttons button:active {
+            background-color: #ccc;
+        }
+    </style>
     <script>
       function handleRequestTypeChange() {
         var requestType = document.getElementById("allRequestType").value;
@@ -20,20 +66,13 @@
             // Redirect to modification page
             window.location.href = "TadexModification.html";
             break;
-            case "active":
+          case "active":
             // Redirect to deletion page
             window.location.href = "Active.html";
             break;
           default:
             // Hide additional data if no valid option is selected
             additionalDataBox.style.display = "none";
-        }
-      }
-
-      function redirectToPage(page) {
-        var requestType = document.getElementById("allRequestType").value;
-        if (requestType) {
-          window.location.href = page;
         }
       }
 
@@ -46,6 +85,37 @@
       function submitForm() {
         alert("Your request is submitted successfully.");
       }
+
+      window.addEventListener("DOMContentLoaded", function () {
+        const transactionValueInput = document.getElementById('transaction-value');
+        const increaseButton = document.getElementById('increase');
+        const decreaseButton = document.getElementById('decrease');
+
+        increaseButton.addEventListener('click', function() {
+            let currentValue = parseFloat(transactionValueInput.value);
+            if (!isNaN(currentValue) && currentValue.toString().length <= 14) {
+                currentValue += 1;
+                transactionValueInput.value = currentValue.toFixed(2);
+            }
+        });
+
+        decreaseButton.addEventListener('click', function() {
+            let currentValue = parseFloat(transactionValueInput.value);
+            if (!isNaN(currentValue) && currentValue > 0) {
+                currentValue -= 1;
+                transactionValueInput.value = currentValue.toFixed(2);
+            }
+        });
+
+        // Prevent any non-numeric input except for decimal point
+        transactionValueInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9.]/g, '');
+            if (value.split('.').length > 2) {
+                value = value.replace(/\.+$/, "");
+            }
+            e.target.value = value;
+        });
+      });
     </script>
   </head>
   <body>
@@ -63,13 +133,10 @@
           </div>
           <div class="form-input">
             <select id="allRequestType" onchange="handleRequestTypeChange();">
-              <!-- <option value="Select">Select</option> -->
               <option value="creation">Creation</option>
               <option value="modification">Modification</option>
               <option value="deletion">Deletion</option>
-              <option value="deletion">Active/Deactive</option>
-
-
+              <option value="active">Active/Deactive</option>
             </select>
           </div>
         </div>
@@ -111,9 +178,6 @@
             <select>
               <option value="Select">Select</option>
               <option value="aspect">Tadex</option>
-              <!-- <option value="sfdc">SFDC</option>
-              <option value="Aadhar Vault">Aadhar Vault</option>
-              <option value="CRM Next">CRM Next</option> -->
             </select>
           </div>
         </div>
@@ -128,7 +192,6 @@
             <select>
               <option value="select">Select</option>
               <option value="aspect">Tadex</option>
-              <!-- <option value="aspect">Tadex Star</option> -->
             </select>
           </div>
         </div>
@@ -150,7 +213,7 @@
       </div>
     </div>
 
-    <!-- Additional Data Required For Aspect -->
+    <!-- Additional Data Required For Tadex -->
     <div class="bx-2" id="additionalData">
       <div class="head">
         <p>Additional Data Required For Tadex</p>
@@ -185,7 +248,7 @@
           </div>
           <!-- ./Second Field : Role -->
 
-<!-- Third Field : Branch -->
+          <!-- Third Field : Branch -->
           <div class="form-field">
             <div class="form-head">
               <p>Branch: <span>*</span></p>
@@ -200,11 +263,7 @@
           </div>
           <!-- ./Third Field : Branch -->
 
-
-          
-
-
-          <!-- Fourth Field : Email ID -->
+          <!-- Fourth Field : Approval Level 1 -->
           <div class="field">
             <div class="form-head">
               <p>Approval Level 1: <span>*</span></p>
@@ -212,113 +271,103 @@
             <div class="form-input">
               <select>
                 <option value="Select">Select</option>
-                <option value="aspect">Approving Autority Level 1</option>
-                <!-- <option value="sfdc">SFDC</option>
-                <option value="Aadhar Vault">Aadhar Vault</option>
-                <option value="CRM Next">CRM Next</option> -->
+                <option value="aspect">Approving Authority Level 1</option>
               </select>
             </div>
           </div>
+          <!-- ./Fourth Field : Approval Level 1 -->
+        </div>
 
+        <div class="form-bx-2">
+          <!-- Additional Field: Name -->
+          <div class="form-field">
+            <div class="form-head">
+              <p>Name: <span>*</span></p>
+            </div>
+            <div class="form-input">
+              <input
+                type="text"
+                placeholder="Enter Name"
+                value="User’s Name"
+                disabled
+              />
+            </div>
+          </div>
+          <!-- ./Additional Field: Name -->
 
+          <!-- Additional Field: Email ID -->
+          <div class="form-field">
+            <div class="form-head">
+              <p>Email ID: <span>*</span></p>
+            </div>
+            <div class="form-input">
+              <input
+                type="email"
+                placeholder="Enter Email ID"
+                value="abc@xyz.com"
+                disabled
+              />
+            </div>
+          </div>
+          <!-- ./Additional Field: Email ID -->
 
-          <!-- <div class="field">
+          <!-- Additional Field: Department -->
+          <div class="form-field">
+            <div class="form-head">
+              <p>Department: <span>*</span></p>
+            </div>
+            <div class="form-input">
+              <input
+                type="text"
+                placeholder="Enter Department"
+                value="User’s Department"
+                disabled
+              />
+            </div>
+          </div>
+          <!-- ./Additional Field: Department -->
+
+          <!-- Transaction Value Input -->
+          <div class="form-field">
+            <div class="form-head">
+              <p>Transaction Value: <span>*</span></p>
+            </div>
+            <div class="form-input">
+              <div class="input-container">
+                <span class="currency-symbol">₹</span>
+                <input type="text" id="transaction-value" value="0.00" />
+                <div class="input-buttons">
+                  <button id="increase">+</button>
+                  <button id="decrease">-</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ./Transaction Value Input -->
+
+          <!-- Additional Field: Approval Level 2 -->
+          <div class="field">
             <div class="form-head">
               <p>Approval Level 2: <span>*</span></p>
             </div>
             <div class="form-input">
               <select>
                 <option value="Select">Select</option>
-                <option value="aspect">Approving Autority Level 2</option> -->
-                <!-- <option value="sfdc">SFDC</option>
-                <option value="Aadhar Vault">Aadhar Vault</option>
-                <option value="CRM Next">CRM Next</option> -->
-              <!-- </select>
-            </div>
-          </div> -->
-
-          <!-- ./Fourth Field : Email ID -->
-        </div>
-
-
-        <div class="form-bx-2">
-          <!-- Additional Field: Name -->
-          <div class="form-field">
-            <div class="form-head">
-              <p>Name <span>*</span></p>
-            </div>
-            <div class="form-input">
-              <input
-                type="text"
-                placeholder="To be fetched from HRMS"
-                disabled
-              />
+                <option value="aspect">Approving Authority Level 2</option>
+              </select>
             </div>
           </div>
-
-
-          <div class="form-field">
-            <div class="form-head">
-              <p>Email Id: <span>*</span></p>
-            </div>
-            <div class="form-input">
-              <input
-                type="text"
-                placeholder="Email ID To be fetched from HRMS"
-                disabled
-              />
-            </div>
-          </div>
-
-            <!-- User Status -->
-            <div class="field">
-              <div class="form-head">
-                <p>Transaction Value: <span>*</span></p>
-              </div>
-              <div class="form-input">
-                <select>
-                  <option value="Select">Select</option>
-                  <option value="aspect">0 - 50000</option>
-                  <!-- <option value="sfdc">SFDC</option>
-                  <option value="Aadhar Vault">Aadhar Vault</option>
-                  <option value="CRM Next">CRM Next</option> -->
-                </select>
-              </div>
-            </div>
-
-
-            <div class="field">
-              <div class="form-head">
-                <p>User Type: <span>*</span></p>
-              </div>
-              <div class="form-input">
-                <div class="rd-bx">
-                  <div class="rd-1">
-                    <input type="radio" id="myself" name="requestFor" checked />
-                    <label for="myself">Active</label>
-                  </div>
-                 
-                </div>
-                <div class="emp-bx">
-                 
-                </div>
-              </div>
-            </div>
-          <!-- Approval Status -->
-         
-          <!-- ./Approval Level 1 -->
+          <!-- ./Additional Field: Approval Level 2 -->
         </div>
       </div>
     </div>
+    <!-- ./Additional Data Required For Tadex -->
 
-    <!-- Buttons for Reset and Submit -->
-    <div class="btn-grp-bx">
-      <div class="btn btn-1">
-        <button type="button" onclick="resetForm()">Reset</button>
-      </div>
-      <div class="btn btn-2">
-        <button type="button" onclick="submitForm()">Submit</button>
-      </div>
+    <!-- Buttons: Reset and Submit -->
+    <div class="btns">
+      <button onclick="resetForm()">Reset</button>
+      <button onclick="submitForm()">Submit</button>
     </div>
+    <!-- ./Buttons: Reset and Submit -->
   </body>
 </html>
