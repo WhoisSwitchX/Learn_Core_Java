@@ -5,64 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction Value Input</title>
     <style>
-        /* Basic styling for the input fields */
-        .transaction-input {
+        .input-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
             width: 200px;
-            padding: 10px;
-            margin: 5px;
-            font-size: 16px;
         }
-        .error {
-            color: red;
-            font-size: 14px;
+
+        .currency-symbol {
+            background-color: #f0f0f0;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            border: none;
+            text-align: right;
+            padding: 10px;
+            font-size: 18px;
+            width: 100px;
+            outline: none;
+        }
+
+        .input-buttons {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-buttons button {
+            border: none;
+            background-color: #f0f0f0;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .input-buttons button:hover {
+            background-color: #ddd;
+        }
+
+        .input-buttons button:active {
+            background-color: #ccc;
         }
     </style>
 </head>
 <body>
-    <form id="transaction-form">
-        <label for="from-value">From:</label>
-        <input type="text" id="from-value" class="transaction-input" maxlength="15" placeholder="Enter from value">
-        <br>
-        <label for="to-value">To:</label>
-        <input type="text" id="to-value" class="transaction-input" maxlength="15" placeholder="Enter to value">
-        <br>
-        <span class="error" id="error-message"></span>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="input-container">
+        <div class="currency-symbol">$</div>
+        <input type="text" id="transaction-value" value="0.00" maxlength="15">
+        <div class="input-buttons">
+            <button id="increase">▲</button>
+            <button id="decrease">▼</button>
+        </div>
+    </div>
 
     <script>
-        const form = document.getElementById('transaction-form');
-        const fromValueInput = document.getElementById('from-value');
-        const toValueInput = document.getElementById('to-value');
-        const errorMessage = document.getElementById('error-message');
+        const transactionValueInput = document.getElementById('transaction-value');
+        const increaseButton = document.getElementById('increase');
+        const decreaseButton = document.getElementById('decrease');
 
-        form.addEventListener('submit', function(event) {
-            // Prevent form submission
-            event.preventDefault();
-
-            const fromValue = fromValueInput.value;
-            const toValue = toValueInput.value;
-
-            // Clear previous error messages
-            errorMessage.textContent = '';
-
-            // Validate that the input is numeric and within 15 digits
-            const numericRegex = /^[0-9]{1,15}$/;
-
-            if (!numericRegex.test(fromValue) || !numericRegex.test(toValue)) {
-                errorMessage.textContent = 'Both fields must be numeric and up to 15 digits long.';
-                return;
+        increaseButton.addEventListener('click', function() {
+            let currentValue = parseFloat(transactionValueInput.value);
+            if (!isNaN(currentValue) && currentValue.toString().length <= 14) {
+                currentValue += 1;
+                transactionValueInput.value = currentValue.toFixed(2);
             }
+        });
 
-            // Validate that the "To" value is greater than or equal to the "From" value
-            if (Number(toValue) < Number(fromValue)) {
-                errorMessage.textContent = '"To" value must be greater than or equal to "From" value.';
-                return;
+        decreaseButton.addEventListener('click', function() {
+            let currentValue = parseFloat(transactionValueInput.value);
+            if (!isNaN(currentValue) && currentValue > 0) {
+                currentValue -= 1;
+                transactionValueInput.value = currentValue.toFixed(2);
             }
+        });
 
-            // If validation passes, submit the form or perform any desired action
-            alert('Transaction value submitted successfully!');
+        // Prevent any non-numeric input except for decimal point
+        transactionValueInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9.]/g, '');
+            if (value.split('.').length > 2) {
+                value = value.replace(/\.+$/, "");
+            }
+            e.target.value = value;
         });
     </script>
 </body>
