@@ -1,142 +1,69 @@
 <!DOCTYPE html>
-  <!-- Coding by CodingLab | www.codinglabweb.com -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!----======== CSS ======== -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!----===== Boxicons CSS ===== -->
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    
-    <!--<title>Dashboard Sidebar Menu</title>--> 
+    <title>Transaction Value Input</title>
+    <style>
+        /* Basic styling for the input fields */
+        .transaction-input {
+            width: 200px;
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <nav class="sidebar close">
-        <header>
-            <div class="image-text">
-                <span class="image">
-                    <img src="logo.png" alt="">
-                </span>
-
-                <div class="text logo-text">
-                    <span class="name">iManage Portal</span>
-                    <span class="profession"></span>
-                </div>
-            </div>
-
-            <i class='bx bx-chevron-right toggle'></i>
-        </header>
-
-        <div class="menu-bar">
-            <div class="menu">
-
-                <li class="search-box">
-                    <i class='bx bxs-home' ></i>
-                    <input type="text" placeholder="Dashboard">
-                </li>
-
-                <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bxs-user-plus'></i>
-                            <span class="text nav-text">New Request</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bxs-user-circle'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bxs-user-check'></i>
-                            <span class="text nav-text">UAR</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-right-top-arrow-circle'></i>
-                            <span class="text nav-text">Birthrights</span>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </div>
-
-            <div class="bottom-content">
-
-                <li class="nav-link">
-                    <a href="#">
-                        <i class='bx bx-pie-chart-alt icon' ></i>
-                        <span class="text nav-text">My Profile</span>
-                    </a>
-                </li>
-
-                <li class="">
-                    <a href="#">
-                        <i class='bx bx-log-out icon' ></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
-
-                <!-- <li class="mode">
-                    <div class="sun-moon">
-                        <i class='bx bx-moon icon moon'></i>
-                        <i class='bx bx-sun icon sun'></i>
-                    </div>
-                    <span class="mode-text text">Dark mode</span>
-
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li> -->
-                
-            </div>
-        </div>
-
-    </nav>
-
-    <section class="home">
-        <div class="text"></div>
-    </section>
+    <form id="transaction-form">
+        <label for="from-value">From:</label>
+        <input type="text" id="from-value" class="transaction-input" maxlength="15" placeholder="Enter from value">
+        <br>
+        <label for="to-value">To:</label>
+        <input type="text" id="to-value" class="transaction-input" maxlength="15" placeholder="Enter to value">
+        <br>
+        <span class="error" id="error-message"></span>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
 
     <script>
-        const body = document.querySelector('body'),
-      sidebar = body.querySelector('nav'),
-      toggle = body.querySelector(".toggle"),
-      searchBtn = body.querySelector(".search-box"),
-      modeSwitch = body.querySelector(".toggle-switch"),
-      modeText = body.querySelector(".mode-text");
+        const form = document.getElementById('transaction-form');
+        const fromValueInput = document.getElementById('from-value');
+        const toValueInput = document.getElementById('to-value');
+        const errorMessage = document.getElementById('error-message');
 
+        form.addEventListener('submit', function(event) {
+            // Prevent form submission
+            event.preventDefault();
 
-toggle.addEventListener("click" , () =>{
-    sidebar.classList.toggle("close");
-})
+            const fromValue = fromValueInput.value;
+            const toValue = toValueInput.value;
 
-searchBtn.addEventListener("click" , () =>{
-    sidebar.classList.remove("close");
-})
+            // Clear previous error messages
+            errorMessage.textContent = '';
 
-modeSwitch.addEventListener("click" , () =>{
-    body.classList.toggle("dark");
-    
-    if(body.classList.contains("dark")){
-        modeText.innerText = "Light mode";
-    }else{
-        modeText.innerText = "Dark mode";
-        
-    }
-});
+            // Validate that the input is numeric and within 15 digits
+            const numericRegex = /^[0-9]{1,15}$/;
+
+            if (!numericRegex.test(fromValue) || !numericRegex.test(toValue)) {
+                errorMessage.textContent = 'Both fields must be numeric and up to 15 digits long.';
+                return;
+            }
+
+            // Validate that the "To" value is greater than or equal to the "From" value
+            if (Number(toValue) < Number(fromValue)) {
+                errorMessage.textContent = '"To" value must be greater than or equal to "From" value.';
+                return;
+            }
+
+            // If validation passes, submit the form or perform any desired action
+            alert('Transaction value submitted successfully!');
+        });
     </script>
-
 </body>
 </html>
